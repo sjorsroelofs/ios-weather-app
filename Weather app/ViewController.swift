@@ -120,8 +120,6 @@ class ViewController: UIViewController {
         } else {
             println("error getting JSON");
         }
-        
-        println("data loaded");
     }
     
     func fahrenheitToCelsius(fahrenheit: Int) -> Int {
