@@ -76,6 +76,7 @@ class ViewController: UIViewController {
 
     // MARK: Event handlers
     @IBAction func reload() {
+        fadeViewsOut();
         forecast!.reload();
     }
 
@@ -125,7 +126,7 @@ class ViewController: UIViewController {
 
     func getWeekdayForDate(date: NSDate) -> Int? {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
-        let components = calendar.components(.CalendarUnitWeekday, fromDate: date);
+        let components = calendar.components(.Weekday, fromDate: date);
 
         return components.weekday - 1;
     }

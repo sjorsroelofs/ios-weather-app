@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>55A110C4-0510-4B07-BE1B-BFBA6ADB9167</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Weather app</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>5EC478CE48F5ABCD8C728328F0D482F458F6DB3F</key>
 		<string>https://bitbucket.org/sjorsroelofs/ios-weather-app.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Weather app.xcodeproj</string>
+	<string>Weather app.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>5EC478CE48F5ABCD8C728328F0D482F458F6DB3F</key>

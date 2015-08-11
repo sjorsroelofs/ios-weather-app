@@ -45,14 +45,14 @@ class Forecast {
         configureDateFormatter();
         
         if data != nil {
-            if let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary {
+            if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                 if let channel = json.valueForKeyPath("query.results.channel") as? NSDictionary {
                     if let location = channel.valueForKeyPath("location") as? NSDictionary {
                         setLocationTitle(location["city"] as! String);
                     }
                     
                     if let condition = channel.valueForKeyPath("item.condition") as? NSDictionary {
-                        self.currentTemperatureFahrenheit = (condition["temp"] as! String).toInt()!;
+                        self.currentTemperatureFahrenheit = Int((condition["temp"] as! String))!;
                     }
                     
                     if let forecast = channel.valueForKeyPath("item.forecast") as? NSArray {
@@ -60,29 +60,29 @@ class Forecast {
                             forecastDays.append(ForecastDay(
                                 label: "tomorrow",
                                 date: getDateFromString(forecast[1]["date"] as! String, withFormat: "d MMM yyyy"),
-                                tempLow: (forecast[1]["low"] as! String).toInt()!,
-                                tempHigh: (forecast[1]["high"] as! String).toInt()!)
+                                tempLow: Int((forecast[1]["low"] as! String))!,
+                                tempHigh: Int((forecast[1]["high"] as! String))!)
                             )
                             
                             forecastDays.append(ForecastDay(
                                 label: "tomorrow",
                                 date: getDateFromString(forecast[2]["date"] as! String, withFormat: "d MMM yyyy"),
-                                tempLow: (forecast[2]["low"] as! String).toInt()!,
-                                tempHigh: (forecast[2]["high"] as! String).toInt()!)
+                                tempLow: Int((forecast[2]["low"] as! String))!,
+                                tempHigh: Int((forecast[2]["high"] as! String))!)
                             )
                             
                             forecastDays.append(ForecastDay(
                                 label: "tomorrow",
                                 date: getDateFromString(forecast[3]["date"] as! String, withFormat: "d MMM yyyy"),
-                                tempLow: (forecast[3]["low"] as! String).toInt()!,
-                                tempHigh: (forecast[3]["high"] as! String).toInt()!)
+                                tempLow: Int((forecast[3]["low"] as! String))!,
+                                tempHigh: Int((forecast[3]["high"] as! String))!)
                             )
                             
                             forecastDays.append(ForecastDay(
                                 label: "tomorrow",
                                 date: getDateFromString(forecast[4]["date"] as! String, withFormat: "d MMM yyyy"),
-                                tempLow: (forecast[4]["low"] as! String).toInt()!,
-                                tempHigh: (forecast[4]["high"] as! String).toInt()!)
+                                tempLow: Int((forecast[4]["low"] as! String))!,
+                                tempHigh: Int((forecast[4]["high"] as! String))!)
                             )
                         }
                     }
