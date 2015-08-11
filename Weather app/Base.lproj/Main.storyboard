@@ -152,10 +152,10 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIc-jZ-ZsR">
-                                <rect key="frame" x="16" y="107" width="568" height="266"/>
+                                <rect key="frame" x="16" y="107" width="568" height="274"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0˚" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ze-4K-6OQ" userLabel="Current temperature">
-                                        <rect key="frame" x="0.0" y="65" width="568" height="125"/>
+                                        <rect key="frame" x="0.0" y="69" width="568" height="125"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="125" id="6gI-HL-en2"/>
                                         </constraints>
@@ -183,12 +183,23 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="afQ-xs-tvV">
+                                <rect key="frame" x="257" y="28" width="87" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="87" id="9bn-ZQ-vKo"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="C˚"/>
+                                    <segment title="F˚"/>
+                                </segments>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="mDC-cj-sN1" firstAttribute="top" secondItem="9by-o0-lXa" secondAttribute="bottom" constant="30" id="1bz-Tr-lk5"/>
                             <constraint firstItem="HJF-go-teB" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="11" id="3tC-N2-Aky"/>
-                            <constraint firstItem="9by-o0-lXa" firstAttribute="top" secondItem="UIc-jZ-ZsR" secondAttribute="bottom" constant="8" id="66r-sT-Pw4"/>
+                            <constraint firstItem="9by-o0-lXa" firstAttribute="top" secondItem="UIc-jZ-ZsR" secondAttribute="bottom" id="66r-sT-Pw4"/>
                             <constraint firstItem="UIc-jZ-ZsR" firstAttribute="top" secondItem="YaV-Qv-9FW" secondAttribute="bottom" constant="8" id="9lh-VW-hNR"/>
                             <constraint firstItem="HJF-go-teB" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="EV5-gX-qbb"/>
                             <constraint firstAttribute="centerX" secondItem="9by-o0-lXa" secondAttribute="centerX" id="FSx-Zk-gcO"/>
@@ -198,6 +209,8 @@
                             <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="mDC-cj-sN1" secondAttribute="bottom" constant="37" id="QGj-3l-wOe"/>
                             <constraint firstItem="UIc-jZ-ZsR" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="hjh-Tk-gpb"/>
                             <constraint firstAttribute="centerX" secondItem="mDC-cj-sN1" secondAttribute="centerX" constant="-1" id="hwV-gm-uGF"/>
+                            <constraint firstItem="afQ-xs-tvV" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="jqS-bJ-aDW"/>
+                            <constraint firstItem="afQ-xs-tvV" firstAttribute="centerX" secondItem="YaV-Qv-9FW" secondAttribute="centerX" id="xhR-yF-cWp"/>
                         </constraints>
                     </view>
                     <connections>
@@ -217,6 +230,7 @@
                         <outlet property="forecastDay4ValueMax" destination="XoE-L9-a1a" id="I1u-wZ-hVA"/>
                         <outlet property="forecastDay4ValueMin" destination="d3b-K1-EeM" id="KJd-0s-1WH"/>
                         <outlet property="measuredDateTime" destination="mDC-cj-sN1" id="gbd-lY-Ong"/>
+                        <outlet property="tempUnitSwitch" destination="afQ-xs-tvV" id="zMv-ge-WKU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

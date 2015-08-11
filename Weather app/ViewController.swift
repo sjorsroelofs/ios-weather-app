@@ -9,11 +9,12 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var atThisMoment: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var measuredDateTime: UILabel!
-    
+    @IBOutlet weak var tempUnitSwitch: UISegmentedControl!
+
     @IBOutlet weak var forecastContainer: UIView!
     @IBOutlet weak var forecastDay1Label: UILabel!
     @IBOutlet weak var forecastDay2Label: UILabel!
@@ -27,108 +28,88 @@ class ViewController: UIViewController {
     @IBOutlet weak var forecastDay3ValueMin: UILabel!
     @IBOutlet weak var forecastDay4ValueMax: UILabel!
     @IBOutlet weak var forecastDay4ValueMin: UILabel!
-    
+
+    var defaultUserSettings: NSUserDefaults? = nil;
+    var notificationCenter = NSNotificationCenter.defaultCenter();
     let dateFormatter = NSDateFormatter();
-    var lastUpdated = "";
+    var forecast: Forecast? = nil;
+    var modelIsReady = false;
+
 
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        super.viewDidLoad();
+
+        defaultUserSettings = NSUserDefaults.standardUserDefaults();
+
+        tempUnitSwitch.addTarget(self, action: "tempUnitDidChange", forControlEvents: UIControlEvents.ValueChanged);
+        tempUnitSwitch.selectedSegmentIndex = getPreferredTempUnitIndex();
+
+        notificationCenter.addObserver(self, selector: "dataChanged:", name: "data updated", object: forecast);
+        notificationCenter.addObserver(self, selector: "loadingDataFailed:", name: "loading data failed", object: forecast);
+
+        forecast = Forecast(currentTemperatureFahrenheit: 0);
     }
-    
+
     override func viewWillAppear(animated: Bool) {
-        loadData();
         hideViews();
-    }
-    
-    override func viewDidAppear(animated: Bool) {
-        fadeViewsIn();
-    }
-    
-    @IBAction func reload() {
-        fadeViewsOut();
-        loadData();
-        fadeViewsIn();
-    }
-    
-    func fadeViewsIn() {
-        UIView.animateWithDuration(1.5, animations: {
-            self.atThisMoment.alpha = 1.0;
-            self.currentTemperature.alpha = 1.0;
-            self.forecastContainer.alpha = 1.0;
-            self.measuredDateTime.alpha = 1.0
-        });
-    }
-    
-    func hideViews() {
-        atThisMoment.alpha = 0.0;
-        currentTemperature.alpha = 0.0;
-        forecastContainer.alpha = 0.0;
-        measuredDateTime.alpha = 0.0
-    }
-    
-    func fadeViewsOut() {
-        UIView.animateWithDuration(0.2, animations: {
-            self.atThisMoment.alpha = 0.0;
-            self.currentTemperature.alpha = 0.0;
-            self.forecastContainer.alpha = 0.0;
-            self.measuredDateTime.alpha = 0.0
-        });
-    }
-    
-    func loadData() {
-        let endpoint = NSURL(string: "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D729282&format=json");
-        let data = NSData(contentsOfURL: endpoint!);
         
-        configureDateFormatter();
-        
-        if let json: NSDictionary = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as? NSDictionary {
-            if let channel = json.valueForKeyPath("query.results.channel") as? NSDictionary {
-                if let location = channel.valueForKeyPath("location") as? NSDictionary {
-                    setCurrentLocationTitle(location["city"] as! String);
-                }
-                
-                if let condition = channel.valueForKeyPath("item.condition") as? NSDictionary {
-                    setCondition(String(fahrenheitToCelsius((condition["temp"] as! String).toInt()!)) + "˚");
-                }
-                
-                if let forecast = channel.valueForKeyPath("item.forecast") as? NSArray {
-                    if forecast.count >= 5 {
-                        forecastDay1Label.text = "tomorrow";
-                        forecastDay1ValueMax.text = String(fahrenheitToCelsius((forecast[1]["high"] as! String).toInt()!)) + "˚";
-                        forecastDay1ValueMin.text = String(fahrenheitToCelsius((forecast[1]["low"] as! String).toInt()!)) + "˚";
-                        
-                        forecastDay2Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(getDateFromString(forecast[2]["date"] as! String, withFormat: "d MMM yyyy")!)!).lowercaseString;
-                        forecastDay2ValueMax.text = String(fahrenheitToCelsius((forecast[2]["high"] as! String).toInt()!)) + "˚";
-                        forecastDay2ValueMin.text = String(fahrenheitToCelsius((forecast[2]["low"] as! String).toInt()!)) + "˚";
-                        
-                        forecastDay3Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(getDateFromString(forecast[3]["date"] as! String, withFormat: "d MMM yyyy")!)!).lowercaseString;
-                        forecastDay3ValueMax.text = String(fahrenheitToCelsius((forecast[3]["high"] as! String).toInt()!)) + "˚";
-                        forecastDay3ValueMin.text = String(fahrenheitToCelsius((forecast[3]["low"] as! String).toInt()!)) + "˚";
-                        
-                        forecastDay4Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(getDateFromString(forecast[4]["date"] as! String, withFormat: "d MMM yyyy")!)!).lowercaseString;
-                        forecastDay4ValueMax.text = String(fahrenheitToCelsius((forecast[4]["high"] as! String).toInt()!)) + "˚";
-                        forecastDay4ValueMin.text = String(fahrenheitToCelsius((forecast[4]["low"] as! String).toInt()!)) + "˚";
-                    }
-                }
-                
-                setLastUpdateDate(NSDate());
-            }
-            else {
-                println("error parsing JSON: 'query.results.channel.item.condition' not found");
-            }
-        } else {
-            println("error getting JSON");
+        if modelIsReady {
+            updateView();
         }
     }
     
-    func fahrenheitToCelsius(fahrenheit: Int) -> Int {
-        let fahrenheit: Double = Double(fahrenheit);
-        let result: Double = round(((fahrenheit - 32) * 5) / 9);
-        
-        return Int(result);
+    override func viewDidAppear(animated: Bool) {
+        if forecast != nil && !forecast!.isDataSuccessfullyLoaded() {
+            showErrorMessage();
+        }
     }
     
+    func showErrorMessage() {
+        let alertController = UIAlertController(title: "Error loading data", message: "Oops.. There was an error loading the current weather data. Click the reload button to try again.", preferredStyle: UIAlertControllerStyle.Alert);
+        let alertAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil);
+        
+        alertController.addAction(alertAction);
+        
+        presentViewController(alertController, animated: true, completion: nil);
+    }
+
+
+    // MARK: Event handlers
+    @IBAction func reload() {
+        forecast!.reload();
+    }
+
+    func dataChanged(notification: NSNotification) {
+        modelIsReady = true;
+
+        if forecast != nil {
+            updateView();
+        }
+    }
+
+    func loadingDataFailed(notification: NSNotification) {
+        modelIsReady = false;
+        
+        if forecast != nil {
+            updateView();
+        }
+    }
+
+    func tempUnitDidChange() {
+        defaultUserSettings!.setInteger(tempUnitSwitch.selectedSegmentIndex, forKey: "tempUnitIndex");
+        updateView();
+    }
+
+
+    // MARK: Getters
+    func getPreferredTempUnitIndex() -> Int {
+        return defaultUserSettings!.integerForKey("tempUnitIndex");
+    }
+
+    func fahrenheitToCelsius(fahrenheit: Int) -> Int {
+        return Int(round(((Double(fahrenheit) - 32) * 5) / 9));
+    }
+
     func getDayOfWeekFromDayOfWeekNumber(number: Int) -> String {
         switch(number) {
             case 1: return "Monday";
@@ -141,35 +122,135 @@ class ViewController: UIViewController {
             default: return "Invalid day of week";
         }
     }
-    
-    func getDateFromString(string: String, withFormat: String) -> NSDate? {
-        dateFormatter.dateFormat = withFormat;
-        return dateFormatter.dateFromString(string);
-    }
-    
+
     func getWeekdayForDate(date: NSDate) -> Int? {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
         let components = calendar.components(.CalendarUnitWeekday, fromDate: date);
-        
+
         return components.weekday - 1;
     }
-    
-    func configureDateFormatter() {
-        dateFormatter.locale = NSLocale(localeIdentifier: "en_GB");
-        dateFormatter.dateFormat = "EEE, dd MMM yyyy h:mm a z";
+
+    func getTemperatureInPreferedUnit(temperatureFahrenheit: Int) -> Int {
+        if getPreferredTempUnitIndex() == 0 {
+            return fahrenheitToCelsius(temperatureFahrenheit);
+        } else {
+            return temperatureFahrenheit;
+        }
     }
-    
-    func setLastUpdateDate(date: NSDate) {
+
+
+    // MARK: User interface setters
+    func updateView() {
+        fadeViewsOut();
+        
+        if !forecast!.isDataSuccessfullyLoaded() {
+            showErrorMessage();
+            return;
+        }
+
+        setCurrentLocationTitle();
+        setTemperature();
+        setForecast();
+        setLastUpdatedTime();
+
+        fadeViewsIn();
+    }
+
+    func setCurrentLocationTitle() {
+        atThisMoment.text = "at this moment in " + forecast!.getLocation().lowercaseString;
+    }
+
+    func setTemperature() {
+        self.currentTemperature.text = String(getTemperatureInPreferedUnit(forecast!.getCurrentTemperatureFahrenheit())) + "˚";
+    }
+
+    func setForecast() {
+        var forecastDays = forecast!.getForecast();
+
+        forecastDay1Label.hidden = true;
+        forecastDay1ValueMax.hidden = true;
+        forecastDay1ValueMin.hidden = true;
+        forecastDay2Label.hidden = true;
+        forecastDay2ValueMax.hidden = true;
+        forecastDay2ValueMin.hidden = true;
+        forecastDay3Label.hidden = true;
+        forecastDay3ValueMax.hidden = true;
+        forecastDay3ValueMin.hidden = true;
+        forecastDay4Label.hidden = true;
+        forecastDay4ValueMax.hidden = true;
+        forecastDay4ValueMin.hidden = true;
+
+        if forecastDays.count >= 1 {
+            forecastDay1Label.text = "tomorrow";
+            forecastDay1ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[0].tempHigh)) + "˚";
+            forecastDay1ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[0].tempLow)) + "˚";
+
+            forecastDay1Label.hidden = false;
+            forecastDay1ValueMax.hidden = false;
+            forecastDay1ValueMin.hidden = false;
+        }
+
+        if forecastDays.count >= 2 {
+            forecastDay2Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[1].date)!).lowercaseString;
+            forecastDay2ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[1].tempHigh)) + "˚";
+            forecastDay2ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[1].tempLow)) + "˚";
+
+            forecastDay2Label.hidden = false;
+            forecastDay2ValueMax.hidden = false;
+            forecastDay2ValueMin.hidden = false;
+        }
+
+        if forecastDays.count >= 3 {
+            forecastDay3Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[2].date)!).lowercaseString;
+            forecastDay3ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[2].tempHigh)) + "˚";
+            forecastDay3ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[2].tempLow)) + "˚";
+
+            forecastDay3Label.hidden = false;
+            forecastDay3ValueMax.hidden = false;
+            forecastDay3ValueMin.hidden = false;
+        }
+
+        if forecastDays.count >= 4 {
+            forecastDay4Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[3].date)!).lowercaseString;
+            forecastDay4ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[3].tempHigh)) + "˚";
+            forecastDay4ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[3].tempLow)) + "˚";
+
+            forecastDay4Label.hidden = false;
+            forecastDay4ValueMax.hidden = false;
+            forecastDay4ValueMin.hidden = false;
+        }
+    }
+
+    func setLastUpdatedTime() {
         dateFormatter.dateFormat = "d MMMM 'at' H:mm";
-        measuredDateTime.text = "last update: " + dateFormatter.stringFromDate(date).lowercaseString;
+        measuredDateTime.text = "last update: " + dateFormatter.stringFromDate(forecast!.getLastUpdateDate()).lowercaseString;
     }
-    
-    func setCurrentLocationTitle(location: String) {
-        atThisMoment.text = "at this moment in " + location.lowercaseString;
+
+
+    // MARK: User interface animations
+    func fadeViewsIn() {
+        UIView.animateWithDuration(1.5, animations: {
+            self.atThisMoment.alpha = 1.0;
+            self.currentTemperature.alpha = 1.0;
+            self.forecastContainer.alpha = 1.0;
+            self.measuredDateTime.alpha = 1.0
+        });
     }
-    
-    func setCondition(condition: String) {
-        self.currentTemperature.text = condition;
+
+    func hideViews() {
+        atThisMoment.alpha = 0.0;
+        currentTemperature.alpha = 0.0;
+        forecastContainer.alpha = 0.0;
+        measuredDateTime.alpha = 0.0
+    }
+
+    func fadeViewsOut() {
+        UIView.animateWithDuration(0.2, animations: {
+            self.atThisMoment.alpha = 0.0;
+            self.currentTemperature.alpha = 0.0;
+            self.forecastContainer.alpha = 0.0;
+            self.measuredDateTime.alpha = 0.0
+        });
     }
 
 }
