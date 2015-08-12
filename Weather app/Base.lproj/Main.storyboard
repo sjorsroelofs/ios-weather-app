@@ -1,9 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <mutableArray key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+            <string>HelveticaNeue-Medium</string>
+        </mutableArray>
+        <mutableArray key="HelveticaNeueLights.ttc">
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-Thin</string>
+            <string>HelveticaNeue-UltraLight</string>
+            <string>HelveticaNeue-Thin</string>
+        </mutableArray>
+    </customFonts>
     <scenes>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
@@ -18,8 +42,8 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="last update: [date] at [time]" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mDC-cj-sN1" userLabel="Last updated">
-                                <rect key="frame" x="241" y="550" width="121" height="13"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="11"/>
+                                <rect key="frame" x="218" y="545" width="165" height="18"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="15"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.42999999999999999" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -141,21 +165,11 @@
                                     <constraint firstItem="DaU-VA-nf8" firstAttribute="width" secondItem="GSu-43-yVK" secondAttribute="width" id="zjq-5L-evY"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJF-go-teB">
-                                <rect key="frame" x="561" y="31" width="23" height="22"/>
-                                <state key="normal" image="reload-icon">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted" image="reload-icon_highlight"/>
-                                <connections>
-                                    <action selector="reload" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YrH-bl-VPp"/>
-                                </connections>
-                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIc-jZ-ZsR">
-                                <rect key="frame" x="16" y="107" width="568" height="274"/>
+                                <rect key="frame" x="20" y="107" width="560" height="274"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0˚" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ze-4K-6OQ" userLabel="Current temperature">
-                                        <rect key="frame" x="0.0" y="69" width="568" height="125"/>
+                                        <rect key="frame" x="0.0" y="75" width="560" height="125"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="125" id="6gI-HL-en2"/>
                                         </constraints>
@@ -166,14 +180,16 @@
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="1Ze-4K-6OQ" firstAttribute="leading" secondItem="UIc-jZ-ZsR" secondAttribute="leading" id="1rj-x3-lVT"/>
-                                    <constraint firstAttribute="trailing" secondItem="1Ze-4K-6OQ" secondAttribute="trailing" id="I9s-tK-Usj"/>
-                                    <constraint firstAttribute="centerY" secondItem="1Ze-4K-6OQ" secondAttribute="centerY" constant="5.5" id="JfO-84-LPt"/>
-                                    <constraint firstAttribute="centerX" secondItem="1Ze-4K-6OQ" secondAttribute="centerX" id="Qzu-Cb-yVI"/>
+                                    <constraint firstItem="1Ze-4K-6OQ" firstAttribute="leading" secondItem="UIc-jZ-ZsR" secondAttribute="leading" id="3x9-bE-VNy"/>
+                                    <constraint firstItem="1Ze-4K-6OQ" firstAttribute="leading" secondItem="UIc-jZ-ZsR" secondAttribute="leading" id="Gy1-sS-ZM5"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ze-4K-6OQ" secondAttribute="trailing" id="Vi6-ce-jlb"/>
+                                    <constraint firstAttribute="trailing" secondItem="1Ze-4K-6OQ" secondAttribute="trailing" id="bVY-sW-wlv"/>
+                                    <constraint firstItem="1Ze-4K-6OQ" firstAttribute="centerY" secondItem="UIc-jZ-ZsR" secondAttribute="centerY" id="yUu-d2-ley"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="Qzu-Cb-yVI"/>
+                                        <exclude reference="Gy1-sS-ZM5"/>
+                                        <exclude reference="bVY-sW-wlv"/>
                                     </mask>
                                 </variation>
                             </view>
@@ -194,24 +210,40 @@
                                 </segments>
                                 <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HJF-go-teB">
+                                <rect key="frame" x="557" y="34" width="23" height="22"/>
+                                <state key="normal" image="reload-icon">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted" image="reload-icon_highlight"/>
+                                <connections>
+                                    <action selector="reload" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YrH-bl-VPp"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="mDC-cj-sN1" firstAttribute="top" secondItem="9by-o0-lXa" secondAttribute="bottom" constant="30" id="1bz-Tr-lk5"/>
-                            <constraint firstItem="HJF-go-teB" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="11" id="3tC-N2-Aky"/>
+                            <constraint firstItem="HJF-go-teB" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="14" id="3tC-N2-Aky"/>
                             <constraint firstItem="9by-o0-lXa" firstAttribute="top" secondItem="UIc-jZ-ZsR" secondAttribute="bottom" id="66r-sT-Pw4"/>
                             <constraint firstItem="UIc-jZ-ZsR" firstAttribute="top" secondItem="YaV-Qv-9FW" secondAttribute="bottom" constant="8" id="9lh-VW-hNR"/>
+                            <constraint firstItem="mDC-cj-sN1" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Bdm-Xj-qXa"/>
                             <constraint firstItem="HJF-go-teB" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="EV5-gX-qbb"/>
                             <constraint firstAttribute="centerX" secondItem="9by-o0-lXa" secondAttribute="centerX" id="FSx-Zk-gcO"/>
                             <constraint firstItem="UIc-jZ-ZsR" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" id="GP5-aW-hkg"/>
                             <constraint firstItem="YaV-Qv-9FW" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="55" id="Kp5-fd-iHB"/>
                             <constraint firstAttribute="centerX" secondItem="YaV-Qv-9FW" secondAttribute="centerX" id="Q6e-mH-tIX"/>
-                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="mDC-cj-sN1" secondAttribute="bottom" constant="37" id="QGj-3l-wOe"/>
                             <constraint firstItem="UIc-jZ-ZsR" firstAttribute="trailing" secondItem="kh9-bI-dsS" secondAttribute="trailingMargin" id="hjh-Tk-gpb"/>
-                            <constraint firstAttribute="centerX" secondItem="mDC-cj-sN1" secondAttribute="centerX" constant="-1" id="hwV-gm-uGF"/>
                             <constraint firstItem="afQ-xs-tvV" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="8" id="jqS-bJ-aDW"/>
+                            <constraint firstItem="mDC-cj-sN1" firstAttribute="top" secondItem="9by-o0-lXa" secondAttribute="bottom" constant="25" id="k4g-ww-S0y"/>
+                            <constraint firstItem="mDC-cj-sN1" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="219" id="q6V-O9-ze2"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="mDC-cj-sN1" secondAttribute="bottom" constant="37" id="rQw-qg-f3d"/>
                             <constraint firstItem="afQ-xs-tvV" firstAttribute="centerX" secondItem="YaV-Qv-9FW" secondAttribute="centerX" id="xhR-yF-cWp"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="q6V-O9-ze2"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="atThisMoment" destination="YaV-Qv-9FW" id="ofS-bA-aaw"/>

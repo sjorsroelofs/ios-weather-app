@@ -45,7 +45,7 @@ class Forecast {
         configureDateFormatter();
         
         if data != nil {
-            if let json: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
+            if let json = try! NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary {
                 if let channel = json.valueForKeyPath("query.results.channel") as? NSDictionary {
                     if let location = channel.valueForKeyPath("location") as? NSDictionary {
                         setLocationTitle(location["city"] as! String);

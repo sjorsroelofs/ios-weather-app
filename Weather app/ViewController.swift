@@ -124,11 +124,16 @@ class ViewController: UIViewController {
         }
     }
 
-    func getWeekdayForDate(date: NSDate) -> Int? {
+    func getWeekdayForDate(date: NSDate) -> Int {
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!;
         let components = calendar.components(.Weekday, fromDate: date);
-
-        return components.weekday - 1;
+        var weekday = components.weekday - 1;
+        
+        if weekday == 0 {
+            weekday = 7;
+        }
+        
+        return weekday;
     }
 
     func getTemperatureInPreferedUnit(temperatureFahrenheit: Int) -> Int {
@@ -192,7 +197,7 @@ class ViewController: UIViewController {
         }
 
         if forecastDays.count >= 2 {
-            forecastDay2Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[1].date)!).lowercaseString;
+            forecastDay2Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[1].date)).lowercaseString;
             forecastDay2ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[1].tempHigh)) + "˚";
             forecastDay2ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[1].tempLow)) + "˚";
 
@@ -202,7 +207,7 @@ class ViewController: UIViewController {
         }
 
         if forecastDays.count >= 3 {
-            forecastDay3Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[2].date)!).lowercaseString;
+            forecastDay3Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[2].date)).lowercaseString;
             forecastDay3ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[2].tempHigh)) + "˚";
             forecastDay3ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[2].tempLow)) + "˚";
 
@@ -212,7 +217,7 @@ class ViewController: UIViewController {
         }
 
         if forecastDays.count >= 4 {
-            forecastDay4Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[3].date)!).lowercaseString;
+            forecastDay4Label.text = getDayOfWeekFromDayOfWeekNumber(getWeekdayForDate(forecastDays[3].date)).lowercaseString;
             forecastDay4ValueMax.text = String(getTemperatureInPreferedUnit(forecastDays[3].tempHigh)) + "˚";
             forecastDay4ValueMin.text = String(getTemperatureInPreferedUnit(forecastDays[3].tempLow)) + "˚";
 
