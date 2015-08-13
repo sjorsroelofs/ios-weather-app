@@ -35,6 +35,9 @@ class ViewController: UIViewController {
     var forecast: Forecast? = nil;
     var modelIsReady = false;
     let weatherCellIdentifier = "weatherTableCellIdentifier";
+    
+    var temperatureAnimateTimer: NSTimer?;
+    var temperatureAnimateCounter = 0;
 
     override func viewDidLoad() {
         super.viewDidLoad();
@@ -167,7 +170,23 @@ class ViewController: UIViewController {
     }
 
     func setTemperature() {
-        self.currentTemperature.text = String(getTemperatureInPreferedUnit(forecast!.getCurrentTemperatureFahrenheit())) + "˚";
+        temperatureAnimateCounter = 0;
+        currentTemperature.text = "0˚";
+        
+        if temperatureAnimateTimer != nil {
+            temperatureAnimateTimer!.invalidate();
+            temperatureAnimateTimer = nil;
+        }
+        
+        for index in 0...getTemperatureInPreferedUnit(forecast!.getCurrentTemperatureFahrenheit()) {
+            temperatureAnimateTimer = NSTimer.scheduledTimerWithTimeInterval(Double(index) * 0.06, target: self, selector: "incrementTemperature", userInfo: nil, repeats: false);
+        }
+    }
+    
+    func incrementTemperature() {
+        if temperatureAnimateCounter <= getTemperatureInPreferedUnit(forecast!.getCurrentTemperatureFahrenheit()) {
+            self.currentTemperature.text = String(temperatureAnimateCounter++) + "˚";
+        }
     }
 
     func setForecast() {
@@ -247,7 +266,7 @@ class ViewController: UIViewController {
         atThisMoment.alpha = 0.0;
         currentTemperature.alpha = 0.0;
         forecastContainer.alpha = 0.0;
-        measuredDateTime.alpha = 0.0
+        measuredDateTime.alpha = 0.0;
     }
 
     func fadeViewsOut() {
@@ -255,7 +274,7 @@ class ViewController: UIViewController {
             self.atThisMoment.alpha = 0.0;
             self.currentTemperature.alpha = 0.0;
             self.forecastContainer.alpha = 0.0;
-            self.measuredDateTime.alpha = 0.0
+            self.measuredDateTime.alpha = 0.0;
         });
     }
 
