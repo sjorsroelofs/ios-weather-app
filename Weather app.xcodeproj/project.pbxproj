@@ -13,6 +13,7 @@
 		A21919F81B72A3D00092693F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A21919F71B72A3D00092693F /* Images.xcassets */; };
 		A21919FB1B72A3D00092693F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = A21919F91B72A3D00092693F /* LaunchScreen.xib */; };
 		A2191A071B72A3D10092693F /* Weather_appTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2191A061B72A3D10092693F /* Weather_appTests.swift */; };
+		A268F4321B7D092B00C85268 /* InfoScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A268F4311B7D092B00C85268 /* InfoScreenViewController.swift */; };
 		A2A9C5361B78FA7000C0E958 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A9C5351B78FA7000C0E958 /* Forecast.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +38,7 @@
 		A2191A001B72A3D10092693F /* Weather appTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Weather appTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2191A051B72A3D10092693F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2191A061B72A3D10092693F /* Weather_appTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather_appTests.swift; sourceTree = "<group>"; };
+		A268F4311B7D092B00C85268 /* InfoScreenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InfoScreenViewController.swift; sourceTree = "<group>"; };
 		A2A9C5351B78FA7000C0E958 /* Forecast.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				A21919F21B72A3D00092693F /* ViewController.swift */,
+				A268F4311B7D092B00C85268 /* InfoScreenViewController.swift */,
 				A21919F41B72A3D00092693F /* Main.storyboard */,
 				A2A9C5351B78FA7000C0E958 /* Forecast.swift */,
 				A21919F91B72A3D00092693F /* LaunchScreen.xib */,
@@ -218,6 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A268F4321B7D092B00C85268 /* InfoScreenViewController.swift in Sources */,
 				A21919F31B72A3D00092693F /* ViewController.swift in Sources */,
 				A2A9C5361B78FA7000C0E958 /* Forecast.swift in Sources */,
 				A21919F11B72A3D00092693F /* AppDelegate.swift in Sources */,

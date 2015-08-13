@@ -34,14 +34,14 @@ class ViewController: UIViewController {
     let dateFormatter = NSDateFormatter();
     var forecast: Forecast? = nil;
     var modelIsReady = false;
-
+    let weatherCellIdentifier = "weatherTableCellIdentifier";
 
     override func viewDidLoad() {
         super.viewDidLoad();
-
+        
         defaultUserSettings = NSUserDefaults.standardUserDefaults();
 
-        tempUnitSwitch.addTarget(self, action: "tempUnitDidChange", forControlEvents: UIControlEvents.ValueChanged);
+        tempUnitSwitch.addTarget(self, action: "tempUnitDidChange", forControlEvents: .ValueChanged);
         tempUnitSwitch.selectedSegmentIndex = getPreferredTempUnitIndex();
 
         notificationCenter.addObserver(self, selector: "dataChanged:", name: "data updated", object: forecast);
@@ -63,10 +63,10 @@ class ViewController: UIViewController {
             showErrorMessage();
         }
     }
-    
+
     func showErrorMessage() {
-        let alertController = UIAlertController(title: "Error loading data", message: "Oops.. There was an error loading the current weather data. Click the reload button to try again.", preferredStyle: UIAlertControllerStyle.Alert);
-        let alertAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil);
+        let alertController = UIAlertController(title: "Error loading data", message: "Oops.. There was an error loading the current weather data. Click the reload button to try again.", preferredStyle: .Alert);
+        let alertAction = UIAlertAction(title: "Dismiss", style: .Default, handler: nil);
         
         alertController.addAction(alertAction);
         
