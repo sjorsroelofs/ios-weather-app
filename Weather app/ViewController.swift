@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var atThisMoment: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var measuredDateTime: UILabel!
+    @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
 
     @IBOutlet weak var forecastContainer: UIView!
     @IBOutlet weak var forecastDay1Label: UILabel!
@@ -50,6 +51,7 @@ class ViewController: UIViewController {
     }
 
     override func viewWillAppear(animated: Bool) {
+        showLoadingIcon();
         hideViews();
         
         if modelIsReady {
@@ -75,8 +77,10 @@ class ViewController: UIViewController {
 
     // MARK: Event handlers
     @IBAction func reload() {
-        fadeViewsOut();
-        forecast!.reload();
+        self.showLoadingIcon();
+        self.fadeViewsOut({ () -> Void in
+            self.forecast!.reload();
+        });
     }
 
     func dataChanged(notification: NSNotification) {
@@ -141,19 +145,24 @@ class ViewController: UIViewController {
 
     // MARK: User interface setters
     func updateView() {
-        fadeViewsOut();
+        self.showLoadingIcon();
         
+        fadeViewsOut({ () -> Void in
+            if self.forecast!.isDataSuccessfullyLoaded() {
+                self.setCurrentLocationTitle();
+                self.setTemperature();
+                self.setForecast();
+                self.setLastUpdatedTime();
+                
+                self.fadeViewsIn();
+                self.hideLoadingIcon();
+            }
+        });
+
         if !forecast!.isDataSuccessfullyLoaded() {
             showErrorMessage();
             return;
         }
-
-        setCurrentLocationTitle();
-        setTemperature();
-        setForecast();
-        setLastUpdatedTime();
-
-        fadeViewsIn();
     }
 
     func setCurrentLocationTitle() {
@@ -260,13 +269,39 @@ class ViewController: UIViewController {
         measuredDateTime.alpha = 0.0;
     }
 
-    func fadeViewsOut() {
+    func fadeViewsOut(callback: (() -> Void)?) {
         UIView.animateWithDuration(0.2, animations: {
             self.atThisMoment.alpha = 0.0;
             self.currentTemperature.alpha = 0.0;
             self.forecastContainer.alpha = 0.0;
             self.measuredDateTime.alpha = 0.0;
-        });
+        }) { (completed: Bool) -> Void in
+            if completed == true && callback != nil {
+                callback!();
+            }
+        };
+    }
+    
+    func showLoadingIcon() {
+        if self.loadingIcon.hidden == true {
+            self.loadingIcon.alpha = 0.0;
+            self.loadingIcon.hidden = false;
+            
+            UIView.animateWithDuration(0.5, animations: {
+                self.loadingIcon.alpha = 1.0;
+            });
+        }
+    }
+    
+    func hideLoadingIcon() {
+        if self.loadingIcon.hidden == false {
+            self.loadingIcon.alpha = 1.0;
+            self.loadingIcon.hidden = true;
+            
+            UIView.animateWithDuration(0.5, animations: {
+                self.loadingIcon.alpha = 0.0;
+            });
+        }
     }
 
 }

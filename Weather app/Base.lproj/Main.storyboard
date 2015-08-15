@@ -171,8 +171,8 @@
                                     <constraint firstItem="DaU-VA-nf8" firstAttribute="width" secondItem="GSu-43-yVK" secondAttribute="width" id="zjq-5L-evY"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UIc-jZ-ZsR">
-                                <rect key="frame" x="16" y="107" width="288" height="242"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UIc-jZ-ZsR">
+                                <rect key="frame" x="16" y="104" width="288" height="211"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0˚" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Ze-4K-6OQ" userLabel="Current temperature">
                                         <rect key="frame" x="0.0" y="43" width="288" height="125"/>
@@ -183,6 +183,9 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="IC2-l8-EGY">
+                                        <rect key="frame" x="134" y="96" width="20" height="20"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.0" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -190,6 +193,8 @@
                                     <constraint firstItem="1Ze-4K-6OQ" firstAttribute="leading" secondItem="UIc-jZ-ZsR" secondAttribute="leading" id="Gy1-sS-ZM5"/>
                                     <constraint firstAttribute="trailing" secondItem="1Ze-4K-6OQ" secondAttribute="trailing" id="Vi6-ce-jlb"/>
                                     <constraint firstAttribute="trailing" secondItem="1Ze-4K-6OQ" secondAttribute="trailing" id="bVY-sW-wlv"/>
+                                    <constraint firstItem="IC2-l8-EGY" firstAttribute="centerX" secondItem="1Ze-4K-6OQ" secondAttribute="centerX" id="iSy-GC-xmO"/>
+                                    <constraint firstItem="IC2-l8-EGY" firstAttribute="centerY" secondItem="1Ze-4K-6OQ" secondAttribute="centerY" id="pdl-eT-iBj"/>
                                     <constraint firstItem="1Ze-4K-6OQ" firstAttribute="centerY" secondItem="UIc-jZ-ZsR" secondAttribute="centerY" id="yUu-d2-ley"/>
                                 </constraints>
                                 <variation key="default">
@@ -261,6 +266,7 @@
                         <outlet property="forecastDay4Label" destination="LUP-h4-TnA" id="faI-Ey-sAr"/>
                         <outlet property="forecastDay4ValueMax" destination="XoE-L9-a1a" id="I1u-wZ-hVA"/>
                         <outlet property="forecastDay4ValueMin" destination="d3b-K1-EeM" id="KJd-0s-1WH"/>
+                        <outlet property="loadingIcon" destination="IC2-l8-EGY" id="FCh-qY-2A4"/>
                         <outlet property="measuredDateTime" destination="mDC-cj-sN1" id="gbd-lY-Ong"/>
                     </connections>
                 </viewController>
