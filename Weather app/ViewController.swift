@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var atThisMoment: UILabel!
     @IBOutlet weak var currentTemperature: UILabel!
     @IBOutlet weak var measuredDateTime: UILabel!
-    @IBOutlet weak var tempUnitSwitch: UISegmentedControl!
 
     @IBOutlet weak var forecastContainer: UIView!
     @IBOutlet weak var forecastDay1Label: UILabel!
@@ -43,9 +42,6 @@ class ViewController: UIViewController {
         super.viewDidLoad();
         
         defaultUserSettings = NSUserDefaults.standardUserDefaults();
-
-        tempUnitSwitch.addTarget(self, action: "tempUnitDidChange", forControlEvents: .ValueChanged);
-        tempUnitSwitch.selectedSegmentIndex = getPreferredTempUnitIndex();
 
         notificationCenter.addObserver(self, selector: "dataChanged:", name: "data updated", object: forecast);
         notificationCenter.addObserver(self, selector: "loadingDataFailed:", name: "loading data failed", object: forecast);
@@ -97,11 +93,6 @@ class ViewController: UIViewController {
         if forecast != nil {
             updateView();
         }
-    }
-
-    func tempUnitDidChange() {
-        defaultUserSettings!.setInteger(tempUnitSwitch.selectedSegmentIndex, forKey: "tempUnitIndex");
-        updateView();
     }
 
 

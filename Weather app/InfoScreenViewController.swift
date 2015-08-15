@@ -21,7 +21,7 @@ class InfoScreenViewController: UIViewController {
     }
     
     @IBAction func didSwiped(sender: AnyObject) {
-        navigationController?.popToRootViewControllerAnimated(true);
+        tabBarController?.selectedIndex = 0;
     }
 
 }
