@@ -10,7 +10,8 @@ build/
 !default.perspectivev3
 *.xcworkspace
 !default.xcworkspace
-xcuserdata
+project.xcworkspace/
+xcuserdatai/
 profile
 *.moved-aside
 DerivedData

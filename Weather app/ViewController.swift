@@ -46,6 +46,7 @@ class ViewController: UIViewController {
 
         notificationCenter.addObserver(self, selector: "dataChanged:", name: "data updated", object: forecast);
         notificationCenter.addObserver(self, selector: "loadingDataFailed:", name: "loading data failed", object: forecast);
+        notificationCenter.addObserver(self, selector: "didBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil);
 
         forecast = Forecast(currentTemperatureFahrenheit: 0);
     }
@@ -74,7 +75,6 @@ class ViewController: UIViewController {
         presentViewController(alertController, animated: true, completion: nil);
     }
 
-
     // MARK: Event handlers
     @IBAction func reload() {
         self.showLoadingIcon();
@@ -97,6 +97,10 @@ class ViewController: UIViewController {
         if forecast != nil {
             updateView();
         }
+    }
+    
+    func didBecomeActive(notification: NSNotification) {
+        forecast!.checkIfDataNeedsUpdate();
     }
 
 

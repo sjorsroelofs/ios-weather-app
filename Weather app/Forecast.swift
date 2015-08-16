@@ -111,6 +111,12 @@ class Forecast {
         dateFormatter.dateFormat = "EEE, dd MMM yyyy h:mm a z";
     }
     
+    func checkIfDataNeedsUpdate() {
+        if NSDate().timeIntervalSinceDate(getLastUpdateDate()) > 60 * 5 {
+            reload();
+        }
+    }
+    
     
     // MARK: Setters
     private func setLocationTitle(title: String) {
