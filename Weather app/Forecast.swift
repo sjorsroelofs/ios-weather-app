@@ -13,7 +13,7 @@ class Forecast {
     private var notificationCenter = NSNotificationCenter.defaultCenter();
     private let dateFormatter = NSDateFormatter();
     
-    private var currentTemperatureFahrenheit: Int;
+    private var currentTemperatureFahrenheit = 0;
     private var lastUpdated: NSDate;
     private var forecastDays: Array<ForecastDay>;
     private var locationTitle: String;
@@ -28,8 +28,7 @@ class Forecast {
 
 
     // MARK: Initializers
-    init(currentTemperatureFahrenheit: Int) {
-        self.currentTemperatureFahrenheit = currentTemperatureFahrenheit;
+    init() {
         self.lastUpdated = NSDate();
         self.forecastDays = [];
         self.locationTitle = "";
@@ -112,7 +111,7 @@ class Forecast {
     }
     
     func checkIfDataNeedsUpdate() {
-        if NSDate().timeIntervalSinceDate(getLastUpdateDate()) > 60 * 5 {
+        if NSDate().timeIntervalSinceDate(getLastUpdateDate()) > 10 {
             reload();
         }
     }
