@@ -111,7 +111,7 @@ class Forecast {
     }
     
     func checkIfDataNeedsUpdate() {
-        if NSDate().timeIntervalSinceDate(getLastUpdateDate()) > 10 {
+        if NSDate().timeIntervalSinceDate(getLastUpdateDate()) > 60 * 5 {
             reload();
         }
     }
