@@ -25,13 +25,32 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func viewDidLoad() {
         super.viewDidLoad();
         
-        notificationCenter.addObserver(self, selector: "didBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil);
-
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to reload..");
-        refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl);
+        tableView.sendSubviewToBack(refreshControl);
+        
+        refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: .ValueChanged)
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to reload..");
+        refreshControl.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8);
+        
+        notificationCenter.addObserver(self, selector: "didBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil);
         
         self.locations.append(Forecast());
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        refreshControl.alpha = 0.0;
+        
+        if scrollView.contentOffset.y < -3.0 {
+            refreshControl.alpha = 1.0;
+        }
+    }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        refreshControl.alpha = 0.0;
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent;
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -41,6 +60,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     override func viewDidAppear(animated: Bool) {
+        refreshControl.alpha = 0.0;
+        
         for cell in cells {
             cell.updateView();
         }
@@ -53,8 +74,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func handleRefresh(refreshControl: UIRefreshControl) {
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "endRefresh", userInfo: nil, repeats: false);
+        reloadCells();
+    }
+    
+    func endRefresh() {
         refreshControl.endRefreshing();
-        
+    }
+    
+    func reloadCells() {
         for cell in cells {
             cell.reload();
         }
