@@ -29,24 +29,13 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.sendSubviewToBack(refreshControl);
         
         refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: .ValueChanged)
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to reload..");
-        refreshControl.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8);
+        
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to reload..", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]);
+        refreshControl.tintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0);
         
         notificationCenter.addObserver(self, selector: "didBecomeActive:", name: UIApplicationDidBecomeActiveNotification, object: nil);
         
         self.locations.append(Forecast());
-    }
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        refreshControl.alpha = 0.0;
-        
-        if scrollView.contentOffset.y < -3.0 {
-            refreshControl.alpha = 1.0;
-        }
-    }
-    
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        refreshControl.alpha = 0.0;
     }
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
@@ -60,7 +49,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     override func viewDidAppear(animated: Bool) {
-        refreshControl.alpha = 0.0;
+        refreshControl.endRefreshing();
         
         for cell in cells {
             cell.updateView();
