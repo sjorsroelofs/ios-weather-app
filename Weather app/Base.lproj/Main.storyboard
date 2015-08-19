@@ -314,7 +314,7 @@
                         <viewControllerLayoutGuide type="bottom" id="PRf-Lg-vmT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dhP-HZ-FKw">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="431"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe to go back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8su-Cn-JfL">
@@ -333,14 +333,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yahoo-logo" translatesAutoresizingMaskIntoConstraints="NO" id="rUO-yh-oHW">
-                                <rect key="frame" x="109" y="470" width="103" height="24"/>
+                                <rect key="frame" x="109" y="382" width="103" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="103" id="4SK-ae-5Pj"/>
                                     <constraint firstAttribute="height" constant="24" id="MBR-e1-q6l"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Data provided by:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6er-xD-zHu">
-                                <rect key="frame" x="8" y="439" width="304" height="21"/>
+                                <rect key="frame" x="8" y="351" width="304" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="oJl-UK-xJR"/>
                                 </constraints>
@@ -362,10 +362,10 @@
                             <constraint firstItem="rUO-yh-oHW" firstAttribute="centerX" secondItem="dhP-HZ-FKw" secondAttribute="centerX" id="5i9-5X-pru"/>
                             <constraint firstItem="Tfa-B3-Fz0" firstAttribute="leading" secondItem="dhP-HZ-FKw" secondAttribute="leadingMargin" constant="-8" id="7NT-cp-xSL"/>
                             <constraint firstItem="z51-g7-mQz" firstAttribute="top" secondItem="Tfa-B3-Fz0" secondAttribute="bottom" constant="3" id="LzF-oN-xEg"/>
+                            <constraint firstItem="PRf-Lg-vmT" firstAttribute="top" secondItem="rUO-yh-oHW" secondAttribute="bottom" constant="25" id="NkF-am-sps"/>
                             <constraint firstItem="z51-g7-mQz" firstAttribute="top" secondItem="dhP-HZ-FKw" secondAttribute="top" constant="178" id="RNv-h1-bd1"/>
                             <constraint firstItem="6er-xD-zHu" firstAttribute="leading" secondItem="8su-Cn-JfL" secondAttribute="leading" id="WUG-79-RVC"/>
                             <constraint firstItem="8su-Cn-JfL" firstAttribute="leading" secondItem="dhP-HZ-FKw" secondAttribute="leadingMargin" constant="-8" id="ZIs-rh-NbP"/>
-                            <constraint firstItem="PRf-Lg-vmT" firstAttribute="top" secondItem="rUO-yh-oHW" secondAttribute="bottom" constant="25" id="chB-iy-OdC"/>
                             <constraint firstItem="rUO-yh-oHW" firstAttribute="top" secondItem="6er-xD-zHu" secondAttribute="bottom" constant="10" id="f0I-2Q-Ce2"/>
                             <constraint firstItem="8su-Cn-JfL" firstAttribute="trailing" secondItem="dhP-HZ-FKw" secondAttribute="trailingMargin" constant="8" id="k59-e0-osx"/>
                             <constraint firstItem="8su-Cn-JfL" firstAttribute="top" secondItem="z51-g7-mQz" secondAttribute="bottom" constant="25" id="mhx-Pd-yeb"/>
@@ -377,9 +377,10 @@
                             <outletCollection property="gestureRecognizers" destination="3id-Ps-cXz" appends="YES" id="ay5-7U-gvz"/>
                         </connections>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <tabBarItem key="tabBarItem" title="Info" image="info-icon" id="RA0-a5-dqa"/>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="swipeGestureRecognizer" destination="3id-Ps-cXz" id="wrw-Db-vZ1"/>
                     </connections>
@@ -487,6 +488,6 @@
         <image name="info-icon" width="25" height="25"/>
         <image name="settings-icon" width="25" height="25"/>
         <image name="sun-icon" width="25" height="25"/>
-        <image name="yahoo-logo" width="333" height="77"/>
+        <image name="yahoo-logo" width="499" height="116"/>
     </resources>
 </document>
