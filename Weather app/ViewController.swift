@@ -29,7 +29,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.sendSubviewToBack(refreshControl);
         
         refreshControl.addTarget(self, action: "handleRefresh:", forControlEvents: .ValueChanged)
-        
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to reload..", attributes: [NSForegroundColorAttributeName: UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]);
         refreshControl.tintColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0);
         
